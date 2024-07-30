@@ -1,25 +1,9 @@
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "web" {
+resource "aws_instance" "test" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 
   network_interface {
-    network_interface_id = aws_network_interface.foo.id
+    network_interface_id = aws_network_interface.devops_exercise.id
     device_index         = 0
   }
 
@@ -28,6 +12,15 @@ resource "aws_instance" "web" {
   }
 
   tags = {
-    Name = "devops-exercise"
+    Name = "devops_exercise"
+  }
+}
+
+resource "aws_network_interface" "devops_exercise" {
+  subnet_id   = aws_subnet.subnet.id
+  private_ips = ["172.16.10.100"]
+
+  tags = {
+    Name = "primary_network_interface"
   }
 }
