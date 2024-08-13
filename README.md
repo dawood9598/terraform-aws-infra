@@ -1,4 +1,3 @@
-# terraform-backend-app
 This repository contains Terraform configurations for setting up and managing the infrastructure of an application on AWS. It includes configurations for VPC, EC2 instances, Auto Scaling Groups, and SNS. The aim is to provide a scalable and reliable infrastructure using infrastructure as code.
 
 # Resources
